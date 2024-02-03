@@ -1,5 +1,6 @@
-import { IProduct } from '../interfaces';
+import { PickType } from '@nestjs/swagger';
+import { ProductDto } from './product.dto';
 
-export class UpdateProductStockDto implements Partial<IProduct> {
-  readonly stock: number;
-}
+export class UpdateProductStockDto extends PickType(ProductDto, [
+  'stock',
+] as const) {}

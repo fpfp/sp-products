@@ -1,14 +1,14 @@
-import { IsInt, Min, Max, IsOptional } from 'class-validator';
+import { IsInt, Min, Max, IsOptional } from '@nestjs/class-validator';
 
 export class PaginationQueryDto {
   @IsOptional()
   @IsInt()
   @Min(1)
-  page?: number = 1;
+  page?: number;
 
   @IsOptional()
   @IsInt()
   @Min(1)
   @Max(100)
-  size?: number = 10;
+  size?: number;
 }

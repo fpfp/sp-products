@@ -32,6 +32,7 @@ import { EnvEnum } from './common/enums';
         synchronize:
           configService.get<EnvEnum>('NODE_ENV') === EnvEnum.DEVELOPMENT,
         autoLoadModels: true,
+        decimalNumbers: true,
       }),
     }),
     ProductsModule,
@@ -44,6 +45,12 @@ import { EnvEnum } from './common/enums';
       useFactory: () =>
         new ValidationPipe({
           exceptionFactory: validationExceptionFactory,
+          transform: true,
+          whitelist: true,
+          forbidNonWhitelisted: true,
+          transformOptions: {
+            enableImplicitConversion: true,
+          },
         }),
     },
     {

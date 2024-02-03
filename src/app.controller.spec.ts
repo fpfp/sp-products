@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { HealthStatusEnum } from './common/enums';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -15,8 +16,12 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+    it('root should return "HI!"', () => {
+      expect(appController.getHello()).toBe('HI!');
+    });
+
+    it('health should return status OK', () => {
+      expect(appController.health()).toEqual({ status: HealthStatusEnum.OK });
     });
   });
 });

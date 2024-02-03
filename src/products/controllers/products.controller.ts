@@ -9,8 +9,14 @@ import {
   Query,
   HttpCode,
 } from '@nestjs/common';
-import { ProductsService } from '../products.service';
-import { CreateProductDto, UpdateProductStockDto } from '../dto';
+import { ProductsService } from '../services';
+import {
+  CreateProductDto,
+  PaginatedProductsDto,
+  ProductDto,
+  UpdateProductStockDto,
+} from '../dto';
+import { PaginationQueryDto } from '../../common/dto';
 
 @Controller('products')
 export class ProductsController {
@@ -22,10 +28,7 @@ export class ProductsController {
   }
 
   @Get()
-  listProducts(
-    @Query('page') page: number = 1,
-    @Query('size') size: number = 10,
-  ) {
+  listProducts(@Query() { page = 1, size = 10 }: PaginationQueryDto) {
     return this.productsService.findAllAndPaginate({ page, size });
   }
 

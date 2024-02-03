@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProductsService } from './products.service';
-import { ProductsRepository } from './repositories';
+import { ProductsRepository } from '../repositories';
 
 import { getModelToken } from '@nestjs/sequelize';
-import { ProductModel } from './models';
-import { IProduct, IProductCreationAttrs } from './interfaces';
-import { faker } from '@faker-js/faker';
-import { RecordNotFoundError } from '../common/errors';
+import { ProductModel } from '../models';
+import { IProduct, IProductCreationAttrs } from '../interfaces';
+import { RecordNotFoundError } from '../../common/errors';
+import { productsSeeder } from '../seeders';
 
 describe('ProductsService', () => {
   let service: ProductsService;
@@ -24,18 +24,7 @@ describe('ProductsService', () => {
     destroy: jest.Mock<Promise<number>, [number]>;
   };
 
-  const mockProducts: IProduct[] = faker.helpers.multiple(
-    () => ({
-      id: faker.number.int({ max: 100 }),
-      name: faker.commerce.productName(),
-      price: faker.number.float({ min: 1, max: 100 }),
-      stock: faker.number.int(),
-      productToken: faker.string.nanoid(),
-      createdAt: faker.date.past(),
-      updatedAt: faker.date.recent(),
-    }),
-    { count: 20 },
-  );
+  const mockProducts = productsSeeder(20);
 
   beforeEach(async () => {
     mockProductModel = {

@@ -33,6 +33,9 @@ export class ProductModel extends Model<IProduct, IProductCreationAttrs> {
   @Column({
     type: DataType.DECIMAL(10, 2),
     allowNull: false,
+    get() {
+      return parseFloat(this.getDataValue('price'));
+    },
   })
   price: number;
 

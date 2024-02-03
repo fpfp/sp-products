@@ -1,5 +1,5 @@
 import { Model, ModelCtor } from 'sequelize-typescript';
-import { IRepository, Paginated } from '../interfaces';
+import { IRepository, IPaginated } from '../interfaces';
 import { CreationAttributes, Op, Identifier } from 'sequelize';
 import { WhereOptions } from 'sequelize/types';
 import { PaginationQueryDto } from '../dto';
@@ -15,7 +15,12 @@ export class BaseRepository<
     this.repo = repo;
   }
 
-  paginate(data: M[], total: number, page: number, size: number): Paginated<M> {
+  paginate(
+    data: M[],
+    total: number,
+    page: number,
+    size: number,
+  ): IPaginated<M> {
     const hasNextPage = total > page * size;
     const hasPrevPage = page > 1;
     const pagination = {
@@ -52,7 +57,7 @@ export class BaseRepository<
   async findAllAndPaginate({
     page,
     size,
-  }: PaginationQueryDto): Promise<Paginated<M>> {
+  }: PaginationQueryDto): Promise<IPaginated<M>> {
     const { count, rows } = await this.repo.findAndCountAll({
       limit: size,
       offset: (page - 1) * size,

@@ -6,7 +6,7 @@ export const validationExceptionFactory = (
 ): BadRequestException => {
   const result = errors.map(
     (error) =>
-      `Input error: ${error.constraints[Object.keys(error.constraints)[0]]}`,
+      `Input error: ${error.constraints[Object.keys(error.constraints).at(-1)]}`,
   );
   return new BadRequestException(result);
 };

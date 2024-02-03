@@ -1,16 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { faker } from '@faker-js/faker';
 import { ProductsController } from './products.controller';
-import { ProductsService } from '../products.service';
-import { Paginated } from '../../common/interfaces';
+import { ProductsService } from '../services';
+import { IPaginated } from '../../common/interfaces';
 import { IProduct } from '../interfaces';
 import { CreateProductDto, UpdateProductStockDto } from '../dto';
+import { productsSeeder } from '../seeders';
 
 describe('ProductsController', () => {
   let controller: ProductsController;
   let mockProductsService: {
     findAllAndPaginate: jest.Mock<
-      Promise<Paginated<IProduct>>,
+      Promise<IPaginated<IProduct>>,
       [limit: number, offset: number]
     >;
     findById: jest.Mock<Promise<IProduct>, [number]>;
@@ -19,18 +20,7 @@ describe('ProductsController', () => {
     remove: jest.Mock<Promise<void>, [number]>;
   };
 
-  const mockProducts: IProduct[] = faker.helpers.multiple(
-    () => ({
-      id: faker.number.int({ max: 100 }),
-      name: faker.commerce.productName(),
-      price: faker.number.float({ min: 1, max: 100 }),
-      stock: faker.number.int(),
-      productToken: faker.string.nanoid(),
-      createdAt: faker.date.past(),
-      updatedAt: faker.date.recent(),
-    }),
-    { count: 20 },
-  );
+  const mockProducts: IProduct[] = productsSeeder(50);
 
   beforeEach(async () => {
     mockProductsService = {
@@ -58,7 +48,7 @@ describe('ProductsController', () => {
   });
 
   it('controller should return all products', async () => {
-    const result: Paginated<IProduct> = {
+    const result: IPaginated<IProduct> = {
       data: mockProducts,
       pagination: {
         total: mockProducts.length,
@@ -71,7 +61,7 @@ describe('ProductsController', () => {
 
     mockProductsService.findAllAndPaginate.mockResolvedValue(result);
 
-    expect(await controller.listProducts()).toBe(result);
+    expect(await controller.listProducts({})).toBe(result);
     expect(mockProductsService.findAllAndPaginate).toHaveBeenCalled();
   });
 

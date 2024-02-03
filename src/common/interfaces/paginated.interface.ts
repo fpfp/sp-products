@@ -1,10 +1,6 @@
-export interface Paginated<T> {
+import { IPagination } from './pagination.interface';
+
+export interface IPaginated<T> {
   data: T[];
-  pagination: {
-    total: number;
-    page: number;
-    size: number;
-    nextPage: number | null;
-    prevPage: number | null;
-  };
+  pagination: IPagination;
 }
