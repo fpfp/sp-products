@@ -1,5 +1,6 @@
 {
   "moduleFileExtensions": ["js", "json", "ts"],
+  "setupFiles": ["<rootDir>/load-test-env.ts"],
   "rootDir": ".",
   "testEnvironment": "node",
   "testRegex": ".e2e-spec.ts$",

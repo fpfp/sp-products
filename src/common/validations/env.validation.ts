@@ -30,7 +30,6 @@ class EnvironmentVariables {
   @IsString()
   DB_PASSWORD: string;
 
-  // Optional vars
   @IsOptional()
   @IsString()
   CORS_ORIGIN?: string;
