@@ -74,8 +74,8 @@ cp .env.example .env
 Create database and user in your mysql server instance using CLI or a GUI
 
 ```sql
-CREATE DATABASE IF NOT EXISTS your_table;
-GRANT ALL PRIVILEGES ON your_table.* TO 'your_user'@'%';
+CREATE DATABASE IF NOT EXISTS your_database;
+GRANT ALL PRIVILEGES ON your_database.* TO 'your_user'@'%';
 FLUSH PRIVILEGES;
 ```
 
