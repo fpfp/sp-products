@@ -23,6 +23,7 @@ describe('AppController (e2e)', () => {
       imports: [AppModule],
     }).compile();
 
+    // Jest config override some env vars, so a dedicated db will be used for e2e test to avoid conflict
     app = moduleFixture.createNestApplication();
     sequelize = app.get<Sequelize>(Sequelize);
     await sequelize.sync({ force: true });
