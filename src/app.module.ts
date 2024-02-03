@@ -29,10 +29,8 @@ import { EnvEnum } from './common/enums';
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_DATABASE'),
         logging: configService.get<EnvEnum>('NODE_ENV') === EnvEnum.DEVELOPMENT,
-        synchronize:
-          configService.get<EnvEnum>('NODE_ENV') === EnvEnum.DEVELOPMENT,
+        synchronize: true,
         autoLoadModels: true,
-        decimalNumbers: true,
       }),
     }),
     ProductsModule,
